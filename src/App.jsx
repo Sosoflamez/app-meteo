@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import axios from "axios";
 
-const API_KEY = "be1f2a23648f45da97a84334251110";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 function getWeatherIcon(code) {
   if (!code) return "🌡️";
