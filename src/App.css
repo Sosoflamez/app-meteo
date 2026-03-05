@@ -1,15 +1,29 @@
+/* ── Reset de base ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── Page ────────────────────────────────────────────────────────────────── */
 .page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-family: 'Inter', 'Segoe UI', sans-serif;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 2rem;
   transition: background 1.5s ease;
 }
 
+/* ── Lueurs d'ambiance ───────────────────────────────────────────────────── */
 .glow-top {
   position: fixed;
   top: -200px;
@@ -34,7 +48,7 @@
   z-index: 1;
 }
 
-
+/* ── Conteneur principal ─────────────────────────────────────────────────── */
 .main-wrapper {
   position: relative;
   z-index: 10;
@@ -42,6 +56,7 @@
   max-width: 1100px;
 }
 
+/* ── Barre de recherche ──────────────────────────────────────────────────── */
 .search-form {
   display: flex;
   gap: 0.75rem;
@@ -51,6 +66,7 @@
 .search-input-wrapper {
   flex: 1;
   position: relative;
+  min-width: 0;
 }
 
 .search-icon {
@@ -87,12 +103,14 @@
   font-size: 0.9rem;
   transition: opacity 0.2s;
   color: #0f172a;
+  white-space: nowrap;
 }
 
 .search-button:hover {
   opacity: 0.85;
 }
 
+/* ── Erreur ──────────────────────────────────────────────────────────────── */
 .error-box {
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.35);
@@ -103,6 +121,7 @@
   font-size: 0.9rem;
 }
 
+/* ── Loading ─────────────────────────────────────────────────────────────── */
 .loading-wrapper {
   display: flex;
   justify-content: center;
@@ -126,10 +145,10 @@
 
 .loading-text {
   font-size: 0.9rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
 }
 
+/* ── Grille principale ───────────────────────────────────────────────────── */
 .weather-grid {
   display: grid;
   grid-template-columns: 1fr 340px;
@@ -137,13 +156,15 @@
   min-height: 580px;
 }
 
+/* ── Colonne gauche ──────────────────────────────────────────────────────── */
 .left-col {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  min-width: 0;
 }
 
-
+/* ── Panels ──────────────────────────────────────────────────────────────── */
 .panel {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(24px);
@@ -151,12 +172,14 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.25rem;
   padding: 2rem;
+  min-width: 0;
 }
 
 .panel-right {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .panel-info-grid {
@@ -165,28 +188,47 @@
   gap: 1.25rem;
 }
 
+/* ── Hero météo ──────────────────────────────────────────────────────────── */
 .hero-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 1rem;
 }
 
 .city-name {
   color: white;
   font-size: 2.8rem;
   font-weight: 700;
-  margin: 0;
   line-height: 1.1;
+  word-break: break-word;
 }
 
 .city-sub {
   font-size: 1rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.25rem;
 }
 
 .temp-wrapper {
   margin-top: 1.5rem;
+}
+
+/* ── Icône météo animée ──────────────────────────────────────────────────── */
+.weather-icon-anim {
+  font-size: 7rem;
+  display: inline-block;
+  filter: drop-shadow(0 0 40px rgba(255,255,255,0.15));
+  flex-shrink: 0;
+}
+
+/* ── Température animée ──────────────────────────────────────────────────── */
+.animated-temp {
+  font-size: 6.5rem;
+  font-weight: 200;
+  color: white;
+  line-height: 1;
+  display: block;
 }
 
 .condition-text {
@@ -199,16 +241,18 @@
 
 .feels-like {
   font-size: 0.9rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.25rem;
 }
 
+/* ── Divider ─────────────────────────────────────────────────────────────── */
 .divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
   margin: 1.25rem 0;
 }
 
+/* ── Stats ───────────────────────────────────────────────────────────────── */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -227,6 +271,44 @@
   font-size: 1.3rem;
   font-weight: 600;
   color: white;
+  margin-top: 0.2rem;
+}
+
+/* ── StatBar ─────────────────────────────────────────────────────────────── */
+.stat-bar-track {
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  height: 5px;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  width: 0;
+}
+
+/* ── Prévisions horaires ─────────────────────────────────────────────────── */
+.hourly-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+}
+
+.hourly-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.hourly-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+.hourly-grid {
+  display: grid;
+  gap: 0.5rem;
 }
 
 .hourly-card {
@@ -235,6 +317,7 @@
   border-radius: 0.75rem;
   padding: 0.75rem 0.5rem;
   text-align: center;
+  min-width: 72px;
 }
 
 .hourly-time {
@@ -256,12 +339,12 @@
 
 .hourly-rain {
   font-size: 0.65rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.4);
+  margin-top: 0.2rem;
 }
 
+/* ── Prévisions 5 jours ──────────────────────────────────────────────────── */
 .forecast-section-label {
-  letter-spacing: 0.12em;
   margin-bottom: 0.75rem;
 }
 
@@ -272,10 +355,12 @@
   border-radius: 0.875rem;
   padding: 0.85rem 1rem;
   transition: background 0.2s;
+  gap: 0.5rem;
 }
 
 .forecast-day {
   min-width: 80px;
+  flex: 1;
 }
 
 .forecast-day-name {
@@ -284,16 +369,18 @@
 
 .forecast-condition {
   font-size: 0.72rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.4);
+  margin-top: 0.15rem;
 }
 
 .forecast-icon {
   font-size: 1.6rem;
+  flex-shrink: 0;
 }
 
 .forecast-temps {
   text-align: right;
+  flex-shrink: 0;
 }
 
 .forecast-max {
@@ -304,10 +391,10 @@
 
 .forecast-min {
   font-size: 0.82rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.4);
 }
 
+/* ── Mini cards ──────────────────────────────────────────────────────────── */
 .mini-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -326,10 +413,142 @@
   font-size: 1.2rem;
   font-weight: 700;
   color: white;
+  margin-top: 0.25rem;
 }
 
+/* ── Footer ──────────────────────────────────────────────────────────────── */
 .data-source {
   font-size: 0.7rem;
-  font-weight: 400;
   color: rgba(255, 255, 255, 0.2);
+  margin-top: auto;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — iPhone 11 Pro (375px) et mobile en général
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .weather-grid {
+    grid-template-columns: 1fr;
+    min-height: unset;
+    gap: 1rem;
+  }
+
+  .panel {
+    padding: 1.25rem;
+  }
+
+  .panel-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .city-name {
+    font-size: 2rem;
+  }
+
+  .weather-icon-anim {
+    font-size: 4.5rem;
+  }
+
+  .animated-temp {
+    font-size: 4rem;
+  }
+
+  .condition-text {
+    font-size: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 0.75rem;
+  }
+
+  .panel {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  .hero-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .city-name {
+    font-size: 1.75rem;
+  }
+
+  .weather-icon-anim {
+    font-size: 4rem;
+  }
+
+  .animated-temp {
+    font-size: 3.5rem;
+  }
+
+  .city-sub {
+    font-size: 0.85rem;
+  }
+
+  .feels-like {
+    font-size: 0.8rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+
+  .panel-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .forecast-day {
+    min-width: unset;
+  }
+
+  .forecast-day-name {
+    font-size: 0.8rem;
+  }
+
+  .forecast-condition {
+    font-size: 0.65rem;
+  }
+
+  .glow-top, .glow-bottom {
+    width: 200px;
+    height: 200px;
+  }
 }

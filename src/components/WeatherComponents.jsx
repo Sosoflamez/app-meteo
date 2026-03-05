@@ -9,14 +9,12 @@ export function ParticleCanvas({ particle }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resize();
     window.addEventListener("resize", resize);
-
     const pts = Array.from({ length: 30 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -27,7 +25,6 @@ export function ParticleCanvas({ particle }) {
       w: Math.random() * Math.PI * 2,
       ws: Math.random() * 0.018 + 0.004,
     }));
-
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       pts.forEach((p) => {
@@ -48,7 +45,6 @@ export function ParticleCanvas({ particle }) {
       animRef.current = requestAnimationFrame(draw);
     };
     draw();
-
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener("resize", resize);
@@ -65,7 +61,6 @@ export function ParticleCanvas({ particle }) {
 
 export function WeatherIconAnim({ icon }) {
   const ref = useRef(null);
-
   useEffect(() => {
     if (!ref.current) return;
     gsap.killTweensOf(ref.current);
@@ -78,10 +73,7 @@ export function WeatherIconAnim({ icon }) {
   }, [icon]);
 
   return (
-    <div
-      ref={ref}
-      style={{ fontSize: "7rem", display: "inline-block", filter: "drop-shadow(0 0 40px rgba(255,255,255,0.15))" }}
-    >
+    <div ref={ref} className="weather-icon-anim">
       {icon}
     </div>
   );
@@ -90,7 +82,6 @@ export function WeatherIconAnim({ icon }) {
 export function AnimatedTemp({ value, accent }) {
   const ref = useRef(null);
   const prev = useRef(0);
-
   useEffect(() => {
     const obj = { val: prev.current };
     gsap.to(obj, {
@@ -105,7 +96,8 @@ export function AnimatedTemp({ value, accent }) {
   return (
     <span
       ref={ref}
-      style={{ fontSize: "6.5rem", fontWeight: 200, color: "white", lineHeight: 1, textShadow: `0 0 60px ${accent}55` }}
+      className="animated-temp"
+      style={{ textShadow: `0 0 60px ${accent}55` }}
     >
       {value}°
     </span>
@@ -114,7 +106,6 @@ export function AnimatedTemp({ value, accent }) {
 
 export function StatBar({ value, max, accent }) {
   const ref = useRef(null);
-
   useEffect(() => {
     if (ref.current)
       gsap.fromTo(ref.current,
@@ -124,9 +115,8 @@ export function StatBar({ value, max, accent }) {
   }, [value]);
 
   return (
-    <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 999, height: 5, width: "100%", overflow: "hidden", marginTop: 6 }}>
-      <div ref={ref} style={{ height: "100%", background: accent, borderRadius: 999, width: 0 }} />
+    <div className="stat-bar-track">
+      <div ref={ref} className="stat-bar-fill" style={{ background: accent }} />
     </div>
   );
 }
-
