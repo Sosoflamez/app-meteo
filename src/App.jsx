@@ -171,7 +171,6 @@ export default function App() {
               </div>
 
               <div style={{ flex: 1 }} />
-              <p className="data-source">Données : weatherapi.com</p>
             </div>
 
           </div>
